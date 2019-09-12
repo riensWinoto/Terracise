@@ -33,3 +33,52 @@ NB: **Save your serviceAccountKey.json carefully**, **once you lost it you must 
 If Kubernetes (cluster) not needed just multi-line comment along side with the node pool configuration.
 
 For oauth_scopes, adjust with your needs, for more APIs URL see this [Google Scopes](https://developers.google.com/identity/protocols/googlescopes).
+
+
+## Setup for Terraform-Azure
+Setup for Azure must provide **credential ID**, **client secret**, **subscription ID**, and **tenant ID**.
+
+To get that all, we need **Service Principal** that has **Contributor** rights. Follow this step to get that:
+
+  - Open **Azure Cloud Shell** then login using **az login**.
+  
+  - Check your **subscription ID** using **az account list** that displayed as **id**.
+  
+  - Create service principal credential using this command:
+  ```
+     az ad sp create-for-rbac --name="freeName" --role="Contributor" --scopes="/subscriptions/YourSubscription ID"
+  ```
+  
+  - After that better change the password we easier to remember using this command **(optional)**:
+  ```
+    az ad sp credential reset --name="freeName" --password="YourNewPass"
+  ```
+  
+  - We can display our service principal credential using this command:
+  ```
+    az ad sp list --display-name="freeName"
+  ```
+  
+  - That command will displaying our service principal credential, just notice the **appDisplayName**, **appId**, and **appOwnerTenantId**.
+    
+    We will use the **appId** and **appOwnerTenantId** when login to our credential.
+    
+    
+  - Try to login to our credential using this command:
+  ```
+    az login --service-principal --username="appId" --password="yourPassword" --tenant="appOwnerTenantId"
+  ```
+  
+  - If it succeed then we can use it for **TerraciseAzure script**. Remember this mapping:
+    - **appId** is **client_id** 
+    - **appOwnerTenantId** is **tenant_id**
+    - **yourPassword** is **client_secret**
+    - **subscription ID** is **subscription_id**
+    
+    
+##
+Feel free to use it and modify it.
+
+Let me know if something wrong or strange happen just email me at: rienslw@outlook.com
+
+Thank You :D
