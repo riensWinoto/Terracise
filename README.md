@@ -76,7 +76,38 @@ To get that all, we need **Service Principal** that has **Contributor** rights. 
     - **subscription ID** is **subscription_id**
     
     
-##
+## Setup for Terraform-IBM
+Setup for IBM must provide **API Key**, **Terraform Plugin**
+
+Because IBM Cloud not default by **Terraform**, so we need to install the plugin separately:
+
+  - Download the IBM Cloud binary package **[here](https://github.com/IBM-Cloud/terraform-provider-ibm/releases)**.
+    After finish download, extract the package and retrieve the binary file.
+
+  - Create hidden folder for the plugin:
+    ```
+        mkdir $HOME/.terraform.d/plugins
+    ```
+
+  - Move the plugin to the hidden folder, verify the installation is complete, the output must be like this:
+    ```
+        2018/09/25 17:30:14 IBM Cloud Provider version 0.11.3  fdc4aa0f0547177f3ea8b14c7a58a849e240f64a
+        This binary is a plugin. These are not meant to be executed directly.
+        Please execute the program that consumes these plugins, which will load any plugins automatically
+    ``` 
+
+Don't forget the **API Key**, needed to access the Cloud:
+
+  - In the IBM Cloud console, go to **Manage > Access (IAM) > API keys**.
+  - Click Create an IBM Cloud API key.
+  - Enter a name and description for your API key.
+  - Click Create.
+  - Then, click Show to display the API key. Or, click Copy to copy and save it for later, or click Download.
+
+**NB: For security reasons, the API key is only available to be copied or downloaded at the time of creation. 
+If the API key is lost, you must create a new API key.**
+
+    
 Feel free to use it and modify it.
 
 Let me know if something wrong or strange happen just email me at: rienslw@outlook.com
